@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 
 function App() {
   const [imageLink, setImageLink] = useState("");
-  const [emotions, setEmotions] = useState([]);
+  const [emotions, setEmotions] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   function fetchData() {
     fetch(
@@ -23,8 +24,10 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setEmotions(data.emotions[0]);
         console.log(emotions);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error(err);
@@ -38,6 +41,7 @@ function App() {
           event.preventDefault();
           fetchData();
           setImageLink("");
+          setIsLoading(true);
         }}
         action=""
       >
@@ -51,6 +55,7 @@ function App() {
         />
         <input type="submit" value="Send Request" />
       </form>
+      {isLoading ? "" : <p>{emotions.joyLikelihood}</p>}
     </div>
   );
 }
