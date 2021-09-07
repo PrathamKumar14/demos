@@ -8,35 +8,36 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   function fetchData() {
-    // fetch(
-    //   "https://facial-emotion-recognition.p.rapidapi.com/cloudVision/facialEmotionRecognition?source=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1418652395119153153%2FdvMUbHmM_400x400.jpg&sourceType=url",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //       "x-rapidapi-host": "facial-emotion-recognition.p.rapidapi.com",
-    //       "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-    //     },
-    //     body: JSON.stringify({
-    //       source: imageLink,
-    //       sourceType: "url",
-    //     }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setEmotions(data.emotions[0]);
-    //     console.log(emotions);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    fetch(
+      "https://facial-emotion-recognition.p.rapidapi.com/cloudVision/facialEmotionRecognition?source=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1418652395119153153%2FdvMUbHmM_400x400.jpg&sourceType=url",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-rapidapi-host": "facial-emotion-recognition.p.rapidapi.com",
+          "x-rapidapi-key": process.env.REACT_APP_API_KEY,
+        },
+        body: JSON.stringify({
+          source: imageLink,
+          sourceType: "url",
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setEmotions(data.emotions[0]);
+        console.log(emotions);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   return (
     <div>
+      <h1>Emotion Recognition</h1>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -61,10 +62,18 @@ function App() {
         ""
       ) : (
         <div className="data">
-          <p>Joy: {emotions.joyLikelihood}</p>
-          <p>Anger: {emotions.angerLikelihood}</p>
-          <p>Suprise: {emotions.surpriseLikelihood}</p>
-          <p>Sorrow: {emotions.sorrowLikelihood}</p>
+          <p>
+            Joy: <span>{emotions.joyLikelihood}</span>
+          </p>
+          <p>
+            Anger: <span>{emotions.angerLikelihood}</span>
+          </p>
+          <p>
+            Suprise: <span>{emotions.surpriseLikelihood}</span>
+          </p>
+          <p>
+            Sorrow: <span>{emotions.sorrowLikelihood}</span>
+          </p>
         </div>
       )}
     </div>

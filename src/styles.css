@@ -3,18 +3,22 @@ body {
   margin: 0;
   background-color: #1d1d20;
   color: #ffffffde;
-  display: grid;
-  place-content: center;
+  /* display: grid; */
+  /* place-content: center; */
+  overflow: hidden;
 }
 
 h1 {
   text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  color: #e2e2e2;
 }
 
 form {
   display: flex;
-  width: 100vw;
   justify-content: center;
+  margin-top: 120px;
 }
 
 .search-input {
@@ -50,6 +54,15 @@ form {
 }
 
 .data {
-  width: 100vw;
   text-align: center;
+}
+
+.data > p {
+  font-size: 1.5rem;
+  color: #848484;
+}
+
+.data > p > span {
+  text-transform: lowercase;
+  color: #4a90e2;
 }
