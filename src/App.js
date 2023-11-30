@@ -7,8 +7,9 @@ function App() {
   const [emotions, setEmotions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  function fetchData() {
-    fetch(
+  async function fetchData() {
+  try {
+    const response = await fetch(
       "https://facial-emotion-recognition.p.rapidapi.com/cloudVision/facialEmotionRecognition?source=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1418652395119153153%2FdvMUbHmM_400x400.jpg&sourceType=url",
       {
         method: "POST",
@@ -22,18 +23,20 @@ function App() {
           sourceType: "url",
         }),
       }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setEmotions(data.emotions[0]);
-        console.log(emotions);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setEmotions(data.emotions[0]);
+    setIsLoading(false);
+  } catch (err) {
+    console.error(err);
   }
+}
+
 
   return (
     <div>
